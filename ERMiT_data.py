@@ -285,10 +285,14 @@ def query_ermit():
         print("JSONIFY DATA works")
         print(all_data)
 
-        return ""
+        resp = jsonify(all_data)
+        resp.status_code = 200
+        resp.headers['Link'] = 'localhost:4200'
+
+        return resp
 
     if request.method == 'GET':
-        pass
+        return "get is invoked"
 
 if __name__ == '__main__':
     app.run()
