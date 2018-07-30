@@ -26,7 +26,7 @@ class Slopes:
     x_coord_toe = 0
     y_coord_toe = 0
 
-    def __init__(self, top_slope_percent, avg_slope_percent, toe_slope_percent, x_coord_init, y_coord_init):
+    def __init__(self, top_slope_percent, avg_slope_percent, toe_slope_percent, x_coord_init, y_coord_init, length):
         """Initializes the data."""
         Slopes.top_slope_percent = top_slope_percent
         Slopes.avg_slope_percent = avg_slope_percent
@@ -71,24 +71,15 @@ class Slopes:
 
     @classmethod
     def current_data(hill):
-        """Prints the current hillslope information."""
-        print("Hillslope Data:\n")
-        print("Percentage Top Slope Input = {}.".format(hill.top_slope))
-        print("Percentage Avg Slope Input = {}.".format(hill.avg_slope))
-        print("Percentage Toe Slope Input = {}.".format(hill.toe_slope))
-        print("Length = {}.".format(hill.length))
-        print("Height = {}.".format(hill.height))
-        print("Points =")
-        print("({},{}), ({},{}), ({},{}), ({},{})".format(hill.x_coord_init, hill.y_coord_init, hill.x_coord_top, hill.y_coord_top, hill.x_coord_avg, hill.y_coord_avg, hill.x_coord_toe, hill.y_coord_toe))
-
-
-
-top_slope_percent = int(input("Enter Top Slope Percentage: "))
-avg_slope_percent = int(input("Enter Avg Slope Percentage: "))
-toe_slope_percent = int(input("Enter Toe Slope Percentage: "))
-length = int(input("Enter total hillslope length (in feet): "))
-x_coord_init = int(input("Preferred Starting Point X (0 if unsure): "))
-y_coord_init = int(input("Preferred Starting Point Y (0 if unsure): "))
-hillslope = Slopes(top_slope_percent, avg_slope_percent, toe_slope_percent, x_coord_init, y_coord_init)
-hillslope.slope_calculations()
-hillslope.current_data()
+        hillslope_data = {
+            "height": hill.height,
+            "x_coord_init": hill.x_coord_init,
+            "y_coord_init": hill.y_coord_init,
+            "x_coord_top": hill.x_coord_top,
+            "y_coord_top": hill.y_coord_top,
+            "x_coord_avg": hill.x_coord_avg,
+            "y_coord_avg": hill.y_coord_avg,
+            "x_coord_toe": hill.x_coord_toe,
+            "y_coord_toe": hill.y_coord_toe
+        }
+        return hillslope_data
