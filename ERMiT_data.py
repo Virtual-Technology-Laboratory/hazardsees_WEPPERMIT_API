@@ -5,6 +5,7 @@ import time
 import requests
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from percent_slope_to_coordinates import Slopes
 
 def run_ermit(top_slope, avg_slope, toe_slope, rock_content, length_ft,
               cli_fn, severity, soil_type,
@@ -280,7 +281,14 @@ def query_ermit():
 
         print("RETRIEVE DATA works")
 
-        all_data = dict(sent_data, **returned_data)
+        hillslope = Slopes(top_slope_num, avg_slope_num, toe_slope_num, 0, 0, length_ft_num)
+        hillslope.slope_calculations()
+
+        coordinates = hillslope.current_data()
+
+        print("COORDINATE CALC works")
+
+        all_data = dict(sent_data, **returned_data, **coordinates)
 
         print("JSONIFY DATA works")
         print(all_data)
