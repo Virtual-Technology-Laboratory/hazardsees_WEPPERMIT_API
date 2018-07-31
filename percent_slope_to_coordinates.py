@@ -41,13 +41,13 @@ class Slopes:
         Slopes.toe_slope = Slopes.toe_slope_percent * -0.9
 
     def __find_relative_coordinates(self):
-        Slopes.x_coord_top = Slopes.length/3
+        Slopes.x_coord_top = Slopes.length * .1
         Slopes.y_coord_top = Slopes.x_coord_top * math.tan(math.radians(Slopes.top_slope)) # Default math is in radians, but converting to degrees is conceptually simpler in this case
 
-        Slopes.x_coord_avg = Slopes.length/3
+        Slopes.x_coord_avg = Slopes.length * .8
         Slopes.y_coord_avg = Slopes.x_coord_avg * math.tan(math.radians(Slopes.avg_slope))
 
-        Slopes.x_coord_toe = Slopes.length/3
+        Slopes.x_coord_toe = Slopes.length * .1
         Slopes.y_coord_toe = Slopes.x_coord_toe * math.tan(math.radians(Slopes.toe_slope))
 
     def __find_absolute_coordinates(self):
