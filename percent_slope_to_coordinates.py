@@ -72,14 +72,14 @@ class Slopes:
     @classmethod
     def current_data(hill):
         hillslope_data = {
-            "height": hill.height,
-            "x_coord_init": hill.x_coord_init,
-            "y_coord_init": hill.y_coord_init,
-            "x_coord_top": hill.x_coord_top,
-            "y_coord_top": hill.y_coord_top,
-            "x_coord_avg": hill.x_coord_avg,
-            "y_coord_avg": hill.y_coord_avg,
-            "x_coord_toe": hill.x_coord_toe,
-            "y_coord_toe": hill.y_coord_toe
+            "height": round(hill.height, 2),
+            "x_coord_init": round(hill.x_coord_init, 2),
+            "y_coord_init": round(hill.y_coord_init, 2),
+            "x_coord_top": round(hill.x_coord_top, 2),
+            "y_coord_top": round(hill.y_coord_top, 2),
+            "x_coord_avg": round(hill.x_coord_avg, 2),
+            "y_coord_avg": round(hill.y_coord_avg, 2),
+            "x_coord_toe": round(hill.x_coord_toe, 2),
+            "y_coord_toe": round(hill.y_coord_toe, 2)
         }
         return hillslope_data
