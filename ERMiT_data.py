@@ -7,65 +7,65 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from percent_slope_to_coordinates import Slopes
 
-def run_ermit(top_slope, avg_slope, toe_slope, rock_content, length_ft,
-              cli_fn, severity, soil_type,
-              vegetation, pct_grass=None, pct_shrub=None):
-
-    assert 0 <= top_slope <= 100
-    assert 0 <= avg_slope <= 100
-    assert 0 <= toe_slope <= 100
-
-    assert 0 <= rock_content <= 50
-
-    assert length_ft >= 0
-
-    if length_ft > 300.0:
-        length_ft = 300.0
-
-    assert severity in ['l', 'm', 'h', 'u']
-    assert soil_type in ['clay', 'silt', 'sand', 'loam']
-    assert vegetation in ['forest', 'range', 'chap']
-
-    if vegetation == 'forest':
-        pct_grass = ''
-        pct_shrub = ''
-        pct_bare = ''
-    elif vegetation == 'range':
-        pct_grass = 75
-        pct_shrub = 15
-        pct_bare = 10
-    elif vegetation == 'chap':
-        pct_grass = 0
-        pct_shrub = 80
-        pct_bare = 20
-    else:
-        assert isfloat(pct_grass)
-        assert isfloat(pct_shrub)
-        assert 0 <= pct_grass <= 100.0
-        assert 0 <= pct_shrub <= 100.0
-        assert 0 <= pct_shrub + pct_grass <= 100.0
-        pct_bare = 100.0 - pct_shrub - pct_grass
-
-    return dict(achtung='Run+WEPP',
-            actionw='Running+ERMiT...',
-            top_slope=top_slope,
-            avg_slope=avg_slope,
-            toe_slope=toe_slope,
-            Climate='../climates/' + cli_fn,
-            climate_name='',
-            debug='',
-            length=length_ft,
-            me='',
-            pct_bare=pct_bare,
-            pct_grass=pct_grass,
-            pct_shrub=pct_shrub,
-            rfg=20,
-            severity=severity,
-            SoilType=soil_type,
-            units='ft',
-            Units='m',
-            vegetation=vegetation,
-            rock_content=rock_content)
+# def run_ermit(top_slope, avg_slope, toe_slope, rock_content, length_ft,
+#               cli_fn, severity, soil_type,
+#               vegetation, pct_grass=None, pct_shrub=None):
+#
+#     assert 0 <= top_slope <= 100
+#     assert 0 <= avg_slope <= 100
+#     assert 0 <= toe_slope <= 100
+#
+#     assert 0 <= rock_content <= 50
+#
+#     assert length_ft >= 0
+#
+#     if length_ft > 300.0:
+#         length_ft = 300.0
+#
+#     assert severity in ['l', 'm', 'h', 'u']
+#     assert soil_type in ['clay', 'silt', 'sand', 'loam']
+#     assert vegetation in ['forest', 'range', 'chap']
+#
+#     if vegetation == 'forest':
+#         pct_grass = ''
+#         pct_shrub = ''
+#         pct_bare = ''
+#     elif vegetation == 'range':
+#         pct_grass = 75
+#         pct_shrub = 15
+#         pct_bare = 10
+#     elif vegetation == 'chap':
+#         pct_grass = 0
+#         pct_shrub = 80
+#         pct_bare = 20
+#     else:
+#         assert isfloat(pct_grass)
+#         assert isfloat(pct_shrub)
+#         assert 0 <= pct_grass <= 100.0
+#         assert 0 <= pct_shrub <= 100.0
+#         assert 0 <= pct_shrub + pct_grass <= 100.0
+#         pct_bare = 100.0 - pct_shrub - pct_grass
+#
+#     return dict(achtung='Run+WEPP',
+#             actionw='Running+ERMiT...',
+#             top_slope=top_slope,
+#             avg_slope=avg_slope,
+#             toe_slope=toe_slope,
+#             Climate='../climates/' + cli_fn,
+#             climate_name='',
+#             debug='',
+#             length=length_ft,
+#             me='',
+#             pct_bare=pct_bare,
+#             pct_grass=pct_grass,
+#             pct_shrub=pct_shrub,
+#             rfg=20,
+#             severity=severity,
+#             SoilType=soil_type,
+#             units='ft',
+#             Units='m',
+#             vegetation=vegetation,
+#             rock_content=rock_content)
 
 app = Flask(__name__)
 CORS(app)
@@ -127,7 +127,8 @@ def query_ermit():
                 "vegetation": vegetation,
                 "rock_content": rock_content,
                 "pct_grass": pct_grass,
-                "pct_shrub": pct_shrub
+                "pct_shrub": pct_shrub,
+                "pct_bare": pct_bare
                 }
 
         def submitErmitValues():
