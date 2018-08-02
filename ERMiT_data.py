@@ -80,27 +80,34 @@ def query_ermit():
         errors = {}
 
         def writeErmitValues(top_slope_num, avg_slope_num, toe_slope_num, length_ft_num, pct_bare_num, pct_grass_num, pct_shrub_num, rock_content_num, cli_select_num, soil_select_num, veg_select_num, sev_radio_num):
-            top_slope_form.clear()
-            avg_slope_form.clear()
-            toe_slope_form.clear()
-            length_ft_form.clear()
-            pct_bare_form.clear()
-            pct_grass_form.clear()
-            pct_shrub_form.clear()
-            rock_content_form.clear()
-
-            top_slope_form.send_keys(top_slope_num)
-            avg_slope_form.send_keys(avg_slope_num)
-            toe_slope_form.send_keys(toe_slope_num)
-            length_ft_form.send_keys(length_ft_num)
-            pct_bare_form.send_keys(pct_bare_num)
-            pct_grass_form.send_keys(pct_grass_num)
-            pct_shrub_form.send_keys(pct_shrub_num)
-            rock_content_form.send_keys(rock_content_num)
+            vegetation_select[veg_select_num].click()
             cli_fn_select[cli_select_num].click()
             soil_type_select[soil_select_num].click()
-            vegetation_select[veg_select_num].click()
             severity_radios[sev_radio_num].click()
+
+            top_slope_form.clear()
+            top_slope_form.send_keys(top_slope_num)
+
+            avg_slope_form.clear()
+            avg_slope_form.send_keys(avg_slope_num)
+
+            toe_slope_form.clear()
+            toe_slope_form.send_keys(toe_slope_num)
+
+            length_ft_form.clear()
+            length_ft_form.send_keys(length_ft_num)
+
+            pct_bare_form.clear()
+            pct_bare_form.send_keys(pct_bare_num)
+
+            pct_grass_form.clear()
+            pct_grass_form.send_keys(pct_grass_num)
+
+            pct_shrub_form.clear()
+            pct_shrub_form.send_keys(pct_shrub_num)
+
+            rock_content_form.clear()
+            rock_content_form.send_keys(rock_content_num)
 
         def getInputValues(cli_select_num, soil_select_num, veg_select_num, sev_radio_num):
             top_slope = top_slope_form.get_attribute("value")
@@ -134,6 +141,7 @@ def query_ermit():
         def submitErmitValues():
             submit = driver.find_element(By.XPATH, "/html/body/font/center/form/p/input[3]")
             submit.click()
+            assert "No results found." not in driver.page_source
 
         def retrieveErmitValues():
             annual_precipitation = driver.find_element(By.XPATH, "/html/body/font/blockquote/center/center/table/tbody/tr[3]/td[1]/b").text
@@ -256,6 +264,8 @@ def query_ermit():
 
         writeErmitValues(top_slope_num, avg_slope_num, toe_slope_num, length_ft_num, pct_bare_num, pct_grass_num, pct_shrub_num, rock_content_num, cli_select_num, soil_select_num, veg_select_num, sev_radio_num)
 
+        print(input_dict)
+
         sent_data = getInputValues(cli_select_num, soil_select_num, veg_select_num, sev_radio_num)
 
         for key, value in sent_data.items():
@@ -281,6 +291,8 @@ def query_ermit():
         returned_data = retrieveErmitValues()
 
         print("RETRIEVE DATA works")
+
+        driver.close()
 
         hillslope = Slopes(top_slope_num, avg_slope_num, toe_slope_num, 0, 0, length_ft_num)
         hillslope.slope_calculations()
